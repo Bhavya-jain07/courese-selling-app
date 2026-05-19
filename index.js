@@ -1,35 +1,35 @@
 const express = require("express");
 const app = express();
 
-app.post("/user/signup", (eeq, res) => {
+app.post("/user/signup", (req, res) => {
     res.json({
         message:"signup endpoint"
     })
 });
 
 
-app.get("/user/signup", (eeq, res) => {
+app.get("/user/signup", (req, res) => {
   res.json({
     message: "signup endpoint",
   });
 });
 
 
-app.get("/user/purchases", (eeq, res) => {
+app.get("/user/purchases", (req, res) => {
   res.json({
     message: "signup endpoint",
   });
 });
 
 
-app.post("/course/purchase", (eeq, res) => {
+app.post("/course/purchase", (req, res) => {
   res.json({
     message: "signup endpoint",
   });
 });
 
 
-app.get("/course", (eeq, res) => {
+app.get("/course", (req, res) => {
   res.json({
     message: "signup endpoint",
   });

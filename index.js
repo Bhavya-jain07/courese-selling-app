@@ -1,10 +1,14 @@
 const express = require("express");
 const app = express();
 
-const {createUserRoutes} =  require("./routes/user.routes")
-const {createCourseRoutes} = require("./routes/course.routes")
-createUserRoutes(app);
-createCourseRoutes(app);
+const {userRouter} =  require("./routes/user.routes")
+const {courseRouter} = require("./routes/course.routes")
+
+
+app.use("/user",userRouter);
+app.use("/course", courseRouter);
+
+
 
 
 app.listen(3000);

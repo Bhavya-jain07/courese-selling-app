@@ -7,7 +7,9 @@ const userRouter = Router();
 const userModel = require("../model/User.model")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const JWT_USER_PASSWORD = "12kjhej1k23321"
+require("dotenv").config();
+const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD;
+
 
 userRouter.post("/signup", async (req, res) => {
   try{

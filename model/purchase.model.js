@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const purchaseSchema = new mongoose.Schema({
-    userId: objectId,
-    courseId : objectId
+    userId: mongoose.Types.objectId,
+    courseId : mongoose.Types.objectId
 })
  
 
-const purchaseModel = mongoose.model("user", purchaseSchema);
+const purchaseModel = mongoose.model("purchase", purchaseSchema);
 module.exports = purchaseModel;

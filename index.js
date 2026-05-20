@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
+const MONGO_DB_URI = process.env.MONGO_DB_URI;
 
 const mongoose = require("mongoose")
 mongoose
-  .connect("mongodb://127.0.0.1:27017/coursera")
+  .connect(MONGO_DB_URI)
   .then(() => {
     console.log("db connected");
   })

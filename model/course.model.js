@@ -5,8 +5,8 @@ const courseSchema = new mongoose.Schema({
   description: String,
   price: Number,
   imageurl: String,
-  creatorID :objectId
+  creatorID :mongoose.Types.ObjectId
 });
 
-const courseModel = mongoose.model("user", courseSchema);
+const courseModel = mongoose.model("course", courseSchema);
 module.exports = courseModel;

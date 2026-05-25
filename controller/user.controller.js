@@ -1,0 +1,77 @@
+async function signup (req, res)  {
+  try {
+    const { email, password, firstname, lastname } = req.body;
+
+    const hashedPass = await bcrypt.hash(password, 10);
+
+    const user = await userModel.create({
+      email,
+      password: hashedPass,
+      firstname,
+      lastname,
+    });
+
+    res.json({
+      message: "signedup successfully",
+    });
+  } catch (err) {
+    res.json({
+      message: "nhi hua bhai error h kuch",
+      err,
+    });
+  }
+};
+
+
+
+const signin = async(req, res) => {
+  const { email, password } = req.body;
+  const user = await userModel.findOne({
+    email,
+  });
+  if (!user) {
+    return res.status(403).json({
+      message: "user not found",
+    });
+    // const token = jwt.sign({
+    //   id:user._id},
+    //   JWT_USER_PASSWORD
+    // )
+    // res.json({
+    //   token
+    // })
+  }
+  const passMatch = await bcrypt.compare(password, user.password);
+  if (passMatch) {
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      JWT_USER_PASSWORD,
+    );
+    res.json({
+      token,
+    });
+  } else {
+    res.status(403).json({
+      mesage: "incorrect credentials",
+    });
+  }
+};
+
+
+const purchase = async (req, res) => {
+  const userId = req.user.id;
+  const purchases = purchaseModel
+    .find({
+      userId,
+    })
+    .populate("courseId");
+  res.json({
+    message: "signup endpoint",
+  });
+};
+
+
+
+module.exports ={signup,signin,purchase}

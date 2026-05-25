@@ -9,7 +9,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD;
-const userMiddleware = require("../middleware/user.middleware")
+const userMiddleware = require("../middleware/user.middleware");
+const courseModel = require("../model/course.model");
+const purchaseModel = require("../model/purchase.model");
 
 userRouter.post("/signup", async (req, res) => {
   try{
@@ -23,9 +25,6 @@ userRouter.post("/signup", async (req, res) => {
       firstname,
       lastname
     })
-    console.log(user);
-
-    
 
     res.json({
       message:"signedup successfully"
@@ -72,7 +71,11 @@ userRouter.post("/signin", async (req, res) => {
   }
 });
 
-userRouter.get("/purchases", (req, res) => {
+userRouter.get("/purchases", userMiddleware,(req, res) => {
+  const userId = req.user.id;
+  const purchases = purchaseModel.find({
+    userId
+  }).populate("courseId")
   res.json({
     message: "signup endpoint",
   });

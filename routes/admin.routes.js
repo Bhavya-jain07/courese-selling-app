@@ -7,6 +7,8 @@ const adminMiddleware = require("../middleware/admin.middleware")
 //bcrypt, zod, jwt
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const userModel = require("../model/User.model");
+const courseModel = require("../model/course.model");
 require("dotenv").config();
 const JWT_ADMIN_PASSWORD = process.env.JWT_ADMIN_PASSWORD;
 
@@ -72,21 +74,46 @@ adminRouter.post("/signin", async (req, res) => {
   }
 });
 
-adminRouter.post("/course",adminMiddleware, (req, res) => {
+adminRouter.post("/course",adminMiddleware, async(req, res) => {
+ const {title ,description ,price ,imageurl } = req.body;
+ const adminId = req.admin.id;
+  const course = await courseModel.create({
+    title,description,price, imageurl,creatorID :adminId
+  })
   res.json({
-    message: "signup endpoint",
+    message:"course created",
+    courseId : adminId
   });
 });
 
-adminRouter.put("/course", adminMiddleware,(req, res) => {
+adminRouter.put("/course", adminMiddleware,async(req, res) => {
+  const adminId = req.admin.id;
+  const { title, description, imageUrl, price, courseId } = req.body;
+  const course = await courseModel.updateOne(
+    {
+      _id: courseId,
+      creatorId: adminId,
+    },
+    {
+      title,
+      description,
+      imageUrl,
+      price
+    },
+  );
   res.json({
-    message: "signup endpoint",
+    message: "course updated",
+    courseId:course._id
   });
 });
 
-adminRouter.get("/course/bulk", adminMiddleware,(req, res) => {
+adminRouter.get("/course/bulk", adminMiddleware,async(req, res) => {
+  const adminId = req.adminId;
+   const course = await courseModel.findOne({
+    creatorId:adminId
+   });
   res.json({
-    message: "signup endpoint",
+   course
   });
 });
 

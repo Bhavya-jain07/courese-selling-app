@@ -10,7 +10,7 @@ function adminMiddleware(req, res, next){
 
     const token = authHeader.split(" ")[1];
     try{
-        const decoded = jwt.verify(token, process.env.JWT_USER_PASSWORD);
+        const decoded = jwt.verify(token, process.env.JWT_ADMIN_PASSWORD);
         req.admin = decoded;
         next();
     }

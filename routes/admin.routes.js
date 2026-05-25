@@ -1,6 +1,8 @@
 const {Router} = require("express");
 const adminRouter = Router();
 const adminModel = require("../model/admin.model");
+// const JWT_ADMIN_PASSWORD = process.env.JWT_ADMIN_PASSWORD;
+const adminMiddleware = require("../middleware/admin.middleware")
 
 //bcrypt, zod, jwt
 const bcrypt = require("bcrypt");
@@ -70,19 +72,19 @@ adminRouter.post("/signin", async (req, res) => {
   }
 });
 
-adminRouter.post("/course", (req, res) => {
+adminRouter.post("/course",adminMiddleware, (req, res) => {
   res.json({
     message: "signup endpoint",
   });
 });
 
-adminRouter.put("/course", (req, res) => {
+adminRouter.put("/course", adminMiddleware,(req, res) => {
   res.json({
     message: "signup endpoint",
   });
 });
 
-adminRouter.get("/course/bulk", (req, res) => {
+adminRouter.get("/course/bulk", adminMiddleware,(req, res) => {
   res.json({
     message: "signup endpoint",
   });

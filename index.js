@@ -15,8 +15,8 @@ mongoose
 
   app.use(express.json());
 
-const {userRouter} =  require("./routes/user.routes")
-const {courseRouter} = require("./routes/course.routes")
+const userRouter =  require("./routes/user.routes")
+const courseRouter = require("./routes/course.routes")
 const adminRouter = require ("./routes/admin.routes")
 
 app.use("/user",userRouter);

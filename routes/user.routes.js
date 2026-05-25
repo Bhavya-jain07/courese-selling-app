@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD;
-
+const userMiddleware = require("../middleware/user.middleware")
 
 userRouter.post("/signup", async (req, res) => {
   try{
@@ -79,4 +79,4 @@ userRouter.get("/purchases", (req, res) => {
 });
 
 
-module.exports = {userRouter};
+module.exports = userRouter;
